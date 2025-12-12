@@ -21,7 +21,7 @@ import { AcademicsFaculty } from "./src/components/academics/AcademicsFaculty";
 import { AcademicsResults } from "./src/components/academics/AcademicsResults";
 import { AcademicsPrograms } from "./src/components/academics/AcademicsPrograms";
 import { Sports } from "./src/components/beyond/Sports";
-import ArtsCulture from "./src/components/beyond/ArtsCulture";
+import { ArtsCulture } from "./src/components/beyond/ArtsCulture";
 import { ClubsSocieties } from "./src/components/beyond/ClubsSocieties";
 import { CommunityService } from "./src/components/beyond/CommunityService";
 import { AdmissionsProcess } from "./src/components/admissions/AdmissionsProcess";

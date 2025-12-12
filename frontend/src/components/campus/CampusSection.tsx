@@ -20,9 +20,14 @@ export function CampusSection() {
           {/* Main gallery image */}
           <div className="relative rounded-[18px] overflow-hidden shadow-[0_10px_30px_rgba(15,23,42,0.08)]">
             <img
-              src="https://images.unsplash.com/photo-1759834687385-fc3a66687fb1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzY2hvb2wlMjBjYW1wdXMlMjBidWlsZGluZ3xlbnwxfHx8fDE3NjUxODk5ODB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+              src="/images/PhotoMomemts/schoolTwo.jpg"
               alt="Scholars engaged in classroom learning"
-              className="w-full h-full max-h-[320px] object-cover"
+              className="w-full object-cover aspect-[4/3] lg:aspect-[4/3]" // Aspect ratio stays the same, but you can tweak here if necessary
+              loading="lazy"
+              decoding="async"
+              sizes="(min-width: 1024px) 60vw, 90vw"
+              width={1280}
+              height={960}
             />
             <div className="absolute left-4 bottom-4 px-3 py-1.5 rounded-full bg-slate-900/88 text-gray-200 text-xs backdrop-blur-sm">
               Inside our learning spaces
@@ -34,9 +39,14 @@ export function CampusSection() {
             {/* Small gallery image */}
             <div className="relative rounded-xl overflow-hidden shadow-[0_10px_30px_rgba(15,23,42,0.08)]">
               <img
-                src="https://images.unsplash.com/photo-1758598737498-03850be1ad89?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGlsZHJlbiUyMHN0dWR5aW5nJTIwdG9nZXRoZXJ8ZW58MXx8fHwxNzY1MjMwNDgyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="/images/PhotoMomemts/SchoolF.jpg"
                 alt="Students at The Scholar's Academy"
-                className="w-full h-full max-h-[150px] object-cover"
+                className="w-full object-cover aspect-[4/3]"
+                loading="lazy"
+                decoding="async"
+                sizes="(min-width: 1024px) 35vw, 45vw"
+                width={640}
+                height={480}
               />
             </div>
 

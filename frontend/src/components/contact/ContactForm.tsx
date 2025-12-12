@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import { AdminButton } from "../admin/AdminButton";
 
 export function ContactForm() {
   const backgroundImage =
-    "/pexels-photo-872955-qdawmgbb24l6wdvk53jcflsth25gu0xtbrs6m27ya4.jpg";
+    "/images/Faculty-Staff/pexels-photo-872955-qdawmgbb24l6wdvk53jcflsth25gu0xtbrs6m27ya4.jpg";
   const sectionRef = useRef<HTMLElement | null>(null);
   const [cardLift, setCardLift] = useState(0);
   const parallaxShift = Math.min(cardLift * 1.25, 220);
+  const handleAdminAccess = () => {
+    window.location.href = "/admin";
+  };
 
   useEffect(() => {
     let animationFrame: number | null = null;
@@ -67,33 +71,26 @@ export function ContactForm() {
             transition: "transform 0.6s ease-out",
           }}
         >
-          <div className="w-full max-w-4xl rounded-[32px] bg-white p-6 text-center text-slate-900 shadow-[0_25px_70px_rgba(15,23,42,0.2)] ring-1 ring-white/70">
-            <p className="text-lg font-semibold leading-relaxed text-slate-800 sm:text-xl">
-              We keep every conversation personal. Share your story, your ideas,
-              or your challenges—the team reads every note and responds with a
-              thoughtful plan.
+          <div
+            className="relative z-20 rounded-[36px] bg-white/98 p-8 text-center shadow-[0_40px_120px_rgba(15,23,42,0.35)] ring-1 ring-white/70 backdrop-blur lg:p-16"
+            style={{
+              transform: `translateY(${-cardLift * 0.9}px)`,
+              transition: "transform 0.6s ease-out",
+            }}
+          >
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-blue-50/90 px-5 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-blue-800 mx-auto">
+              Contact
+            </div>
+            <h2 className="mx-auto max-w-3xl text-5xl font-bold leading-tight text-black sm:text-6xl lg:text-7xl">
+              Let&apos;s Start a Conversation
+            </h2>
+            <p className="mx-auto mt-6 max-w-3xl text-xl font-semibold leading-relaxed text-black sm:text-2xl">
+              Have a message for us? Use our contact form to reach out directly.
+              Whether you have questions, feedback, or inquiries, we&apos;d love
+              to hear from you. Fill out the form with your details and message,
+              and our team will respond to you as soon as possible.
             </p>
           </div>
-        </div>
-        <div
-          className="relative z-20 rounded-[36px] bg-white/98 p-8 text-center shadow-[0_40px_120px_rgba(15,23,42,0.35)] ring-1 ring-white/70 backdrop-blur lg:p-16"
-          style={{
-            transform: `translateY(${-cardLift * 0.9}px)`,
-            transition: "transform 0.6s ease-out",
-          }}
-        >
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-blue-50/90 px-5 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-blue-800 mx-auto">
-            Contact
-          </div>
-          <h2 className="mx-auto max-w-3xl text-5xl font-bold leading-tight text-black sm:text-6xl lg:text-7xl">
-            Let&apos;s Start a Conversation
-          </h2>
-          <p className="mx-auto mt-6 max-w-3xl text-xl font-semibold leading-relaxed text-black sm:text-2xl">
-            Have a message for us? Use our contact form to reach out directly.
-            Whether you have questions, feedback, or inquiries, we&apos;d love
-            to hear from you. Fill out the form with your details and message,
-            and our team will respond to you as soon as possible.
-          </p>
         </div>
       </div>
 
@@ -105,6 +102,7 @@ export function ContactForm() {
           transition: "transform 0.6s ease-out",
         }}
       ></div>
+      <AdminButton onClick={handleAdminAccess} />
     </section>
   );
 }

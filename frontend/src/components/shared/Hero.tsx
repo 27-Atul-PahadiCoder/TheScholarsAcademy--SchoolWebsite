@@ -46,7 +46,7 @@ export function Hero() {
             <div className="flex flex-wrap gap-3 items-center mb-6">
               <a
                 href="#admissions"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-700 text-white hover:bg-blue-800 transition-all hover:-translate-y-0.5 shadow-lg shadow-blue-500/45"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-lightblue-700 text-white hover:bg-blue-800 transition-all hover:-translate-y-0.5 shadow-lg shadow-blue-500/45"
               >
                 <span>Start Admission Enquiry</span>
                 <ChevronRight className="w-4 h-4" />

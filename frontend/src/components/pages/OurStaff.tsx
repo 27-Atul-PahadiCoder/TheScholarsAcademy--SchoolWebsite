@@ -3,14 +3,20 @@ import { GallerySection } from "../gallery/GallerySection";
 
 export function OurStaff() {
   const communityImages = [
-    { src: "schoolCommunity.jpg", alt: "Students enjoying the courtyard" },
     {
-      src: "smilePhoto.png",
+      src: "/images/Faculty-Staff/schoolCommunity.jpg",
+      alt: "Students enjoying the courtyard",
+    },
+    {
+      src: "/images/Faculty-Staff/smilePhoto.png",
       alt: "Festival celebration with parents and staff",
     },
-    { src: "enjoying.jpg", alt: "Creative classroom workshop" },
-    { src: "smilePhoto.png", alt: "Sports day cheering section" },
-    { src: "enjoying.jpg", alt: "Art fair gallery walk" },
+    { src: "/images/Faculty-Staff/enjoying.jpg", alt: "Creative classroom workshop" },
+    {
+      src: "/images/Faculty-Staff/smilePhoto.png",
+      alt: "Sports day cheering section",
+    },
+    { src: "/images/Faculty-Staff/enjoying.jpg", alt: "Art fair gallery walk" },
   ];
   const [communityIndex, setCommunityIndex] = useState(0);
   const [isPreviewing, setIsPreviewing] = useState(false);
@@ -112,17 +118,17 @@ export function OurStaff() {
             </p>
             <div className="rounded-lg shadow-lg overflow-hidden mb-8 flex space-x-4">
               <img
-                src="FounderImage.jpg"
+                src="/images/Faculty-Staff/FounderImage.jpg"
                 alt="Founder Image 1"
                 className="flex-1 h-64 object-cover"
               />
               <img
-                src="FounderImage.jpg"
+                src="/images/Faculty-Staff/FounderImage.jpg"
                 alt="Founder Image 2"
                 className="flex-1 h-64 object-cover"
               />
               <img
-                src="FounderImage.jpg"
+                src="/images/Faculty-Staff/FounderImage.jpg"
                 alt="Founder Image 3"
                 className="flex-1 h-64 object-cover"
               />
@@ -137,31 +143,35 @@ export function OurStaff() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Staff Members */}
               {[
-                { name: "Kamla Pant", role: "Teacher", image: "kamlaPant.jpg" },
+                {
+                  name: "Kamla Pant",
+                  role: "Teacher",
+                  image: "/images/Faculty-Staff/kamlaPant.jpg",
+                },
                 {
                   name: "Anita Kapri",
                   role: "Teacher",
-                  image: "AnitaKapri.jpg",
+                  image: "/images/Faculty-Staff/AnitaKapri.jpg",
                 },
                 {
                   name: "Deepa Jukariya",
                   role: "Teacher",
-                  image: "DeepaJukariya.jpg",
+                  image: "/images/Faculty-Staff/DeepaJukariya.jpg",
                 },
                 {
                   name: "Beena Patni",
                   role: "Sr. Hindi Teacher",
-                  image: "BeenaPatni.jpg",
+                  image: "/images/Faculty-Staff/BeenaPatni.jpg",
                 },
                 {
                   name: "Prema Punera",
                   role: "Sr. Computer Teacher",
-                  image: "PremaPunera.jpg",
+                  image: "/images/Faculty-Staff/PremaPunera.jpg",
                 },
                 {
                   name: "Anupama Sanyal",
                   role: "Teacher",
-                  image: "AnupamaSanyal.jpg",
+                  image: "/images/Faculty-Staff/AnupamaSanyal.jpg",
                 },
               ].map((staff, index) => (
                 <div

@@ -1,134 +1,107 @@
-export default function ArtsCulture() {
-  const scholarsPoints = [
-    {
-      letter: "S",
-      badgeBg: "bg-sky-50",
-      badgeBorder: "border-sky-100",
-      title: "Smart, tech-enabled learning",
-      description:
-        "Smart classes and digital boards that make concepts visual, interactive and easier to retain.",
-    },
-    {
-      letter: "C",
-      badgeBg: "bg-rose-50",
-      badgeBorder: "border-rose-100",
-      title: "Communication & confidence",
-      description:
-        "Communication and personality development sessions that help students become confident presenters and leaders.",
-    },
-    {
-      letter: "H",
-      badgeBg: "bg-violet-50",
-      badgeBorder: "border-violet-100",
-      title: "Hobbies, art & expression",
-      description:
-        "Dedicated space for music, dance, art and martial arts so students can explore their creative selves.",
-    },
-    {
-      letter: "O",
-      badgeBg: "bg-amber-50",
-      badgeBorder: "border-amber-100",
-      title: "Outdoor & real-world exposure",
-      description:
-        "Field trips, nature-based learning and real-world activities expand understanding beyond textbooks.",
-    },
-    {
-      letter: "L",
-      badgeBg: "bg-emerald-50",
-      badgeBorder: "border-emerald-100",
-      title: "Learning from best practices",
-      description:
-        "A blend of Indian traditional values and international learning approaches.",
-    },
-    {
-      letter: "A",
-      badgeBg: "bg-orange-50",
-      badgeBorder: "border-orange-100",
-      title: "Advancing social skills",
-      description:
-        "Collaborative activities and group games that build empathy and teamwork.",
-    },
-    {
-      letter: "R",
-      badgeBg: "bg-slate-50",
-      badgeBorder: "border-slate-100",
-      title: "Review, reflection & support",
-      description:
-        "Progress tracking and personalised guidance for every learner.",
-    },
-    {
-      letter: "S",
-      badgeBg: "bg-yellow-50",
-      badgeBorder: "border-yellow-100",
-      title: "Special care & guidance",
-      description:
-        "Counsellors and special educators ensure children get the right support.",
-    },
-  ];
+import React from "react";
 
-  return (
-    <section
-      id="arts-culture"
-      className="py-20 bg-gradient-to-b from-slate-50 to-white relative"
-      style={{
-        backgroundImage: "url('logo.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
-    >
-      <div className="container max-w-6xl mx-auto px-4">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1.6fr)] items-start relative z-10">
-          {/* LEFT TEXT SIDE */}
-          <div className="bg-white px-6 py-8 rounded-lg shadow-lg">
-            <p className="text-sm font-semibold tracking-[0.22em] text-purple-600 uppercase mb-3">
-              Arts • Culture • Expression
-            </p>
+export function ArtsCulture() {
+  // Define the music and theatre program details
+  const musicProgram = {
+    title: "Music Geniuses",
+    description:
+      "The ensemble programs at The Scholar's Academy, both instrumental and choral, offer numerous performance opportunities to all students, regardless of their level of expertise.",
+    buttonText: "See Videos",
+    backgroundImage: "/images/PhotoMomemts/IMG_20230811_1241322-300x225.jpg", // Make sure this image path is correct
+    galleryImages: [
+      "/images/PhotoMomemts/P1050793-scaled.jpg",
+      "/images/PhotoMomemts/P1050793-scaled.jpg",
+      "/images/PhotoMomemts/P1050793-scaled.jpg",
+      "/images/PhotoMomemts/P1050793-scaled.jpg",
+    ],
+  };
 
-            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
-              Beyond Academics: Dance, Music & Culture
-            </h2>
+  const theatreProgram = {
+    title: "Theatre",
+    description:
+      "The Scholar's Academy’s theatre program includes teacher-directed plays and many student-directed one-act plays. Courses cover acting, directing, public speaking, Shakespeare, and play production.",
+    buttonText: "Theatre Videos",
+    backgroundImage: "/images/PhotoMomemts/IMG_20230811_1241322-300x225.jpg", // Make sure this image path is correct
+    galleryImages: [
+      "/images/PhotoMomemts/P1050793-scaled.jpg",
+      "/images/PhotoMomemts/P1050793-scaled.jpg",
+      "/images/PhotoMomemts/P1050793-scaled.jpg",
+      "/images/PhotoMomemts/P1050793-scaled.jpg",
+    ],
+  };
 
-            <p className="text-slate-700 leading-relaxed mb-4">
-              Creativity is not an extra — it's a core part of childhood. Arts
-              and cultural activities help students explore rhythm, imagination
-              and identity.
-            </p>
-
-            <p className="text-slate-700 leading-relaxed">
-              From classical and folk dance to vocal and instrumental training,
-              students learn to express themselves with confidence and joy.
-            </p>
-          </div>
-
-          {/* RIGHT SCHOLARS COLUMN */}
-          <div className="space-y-4">
-            {scholarsPoints.map((item, index) => (
-              <div
-                key={index}
-                className={`flex items-stretch rounded-2xl border ${item.badgeBorder} ${item.badgeBg} shadow-sm overflow-hidden`}
-              >
-                {/* LETTER */}
-                <div className="flex items-center justify-center px-6 py-6 bg-white/70 border-r border-slate-100">
-                  <span className="text-3xl font-semibold text-slate-800 tracking-[0.25em]">
-                    {item.letter}
-                  </span>
-                </div>
-
-                {/* CONTENT */}
-                <div className="flex-1 px-6 py-4">
-                  <h3 className="text-sm font-semibold text-slate-900 mb-1">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+  // Program Section Component
+  const ProgramSection = ({
+    title,
+    description,
+    buttonText,
+    backgroundImage,
+    galleryImages,
+  }: any) => {
+    return (
+      <div className="w-full mb-20">
+        {/* Hero Section */}
+        <div className="relative w-full h-[420px] md:h-[500px] overflow-hidden p-6">
+          {" "}
+          {/* Added padding here */}
+          <div
+            className="absolute inset-0 bg-cover bg-center scale-105"
+            style={{ backgroundImage: `url(${backgroundImage})` }}
+          />
+          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black/40" />
+          {/* Text Overlay */}
+          <div className="relative h-full flex items-center justify-center px-6">
+            <div className="text-center text-white max-w-xl">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">{title}</h2>
+              <p className="mb-6 text-sm md:text-base leading-relaxed opacity-90">
+                {description}
+              </p>
+              <button className="bg-white text-black px-8 py-2 rounded-full hover:bg-gray-200 transition-all shadow-md">
+                {buttonText}
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* Gallery Section */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 h-[220px] md:h-[260px] lg:h-[280px] px-4">
+          {" "}
+          {/* Added padding here */}
+          {galleryImages.map((image: string, index: number) => (
+            <div key={index} className="relative overflow-hidden p-2">
+              {" "}
+              {/* Added padding here */}
+              <img
+                src={image}
+                alt={`${title} gallery ${index + 1}`}
+                className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+              />
+            </div>
+          ))}
+        </div>
       </div>
+    );
+  };
+
+  // Main Component Return
+  return (
+    <section id="arts-culture" className="py-20 bg-white">
+      <div className="container max-w-5xl mx-auto px-4 text-center mb-16">
+        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          Arts & Culture
+        </h2>
+        <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          The Arts & Culture programs at The Scholar's Academy provide a
+          platform for students to explore their creative passions. Whether
+          through music, theatre, or other art forms, students develop their
+          artistic abilities and participate in a supportive community.
+        </p>
+      </div>
+
+      {/* Program Sections */}
+      <ProgramSection {...musicProgram} />
+      <ProgramSection {...theatreProgram} />
     </section>
   );
 }

@@ -4,29 +4,32 @@ export function AdmissionsSection() {
       <div className="container">
         <div className="flex flex-wrap justify-between items-end gap-4 mb-8">
           <div>
-            <div className="text-xs uppercase tracking-widest text-gray-600 mb-1">Admission</div>
+            <div className="text-xs uppercase tracking-widest text-gray-600 mb-1">
+              Admission
+            </div>
             <h2>Ready to join The Scholar&apos;s Academy?</h2>
           </div>
           <p className="text-sm text-gray-600 max-w-md">
-            Admissions are open for the new academic year. Our team will guide you through the
-            complete process — from enquiry to fee structure.
+            Admissions are open for the new academic year. Our team will guide
+            you through the complete process — from enquiry to fee structure.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-5 rounded-[26px] bg-gradient-to-br from-blue-50 to-slate-800 p-6 text-gray-200 shadow-[0_18px_45px_rgba(15,23,42,0.12)] mt-4">
           {/* Left */}
           <div>
-            <div className="text-xl mb-1.5">How admission works</div>
-            <p className="text-sm text-gray-200 mb-3.5 max-w-sm">
-              Whether you are a parent from Pithoragarh or nearby areas, the process is
-              straightforward and transparent.
+            <div className="text-xl mb-1.5 text-black">How admission works</div>
+            <p className="text-sm text-black mb-3.5 max-w-sm">
+              Whether you are a parent from Pithoragarh or nearby areas, the
+              process is straightforward and transparent.
             </p>
+
             <ul className="space-y-1.5 text-sm text-blue-100 mb-4">
               {[
-                'Step 1 — Visit or call the school office for an enquiry.',
-                'Step 2 — Collect the admission form and prospectus.',
-                'Step 3 — Submit documents and complete interaction / assessment.',
-                'Step 4 — Confirm admission and complete the fee formalities.',
+                "Step 1 — Visit or call the school office for an enquiry.",
+                "Step 2 — Collect the admission form and prospectus.",
+                "Step 3 — Submit documents and complete interaction / assessment.",
+                "Step 4 — Confirm admission and complete the fee formalities.",
               ].map((step, idx) => (
                 <li key={idx} className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 flex-shrink-0"></span>
@@ -54,15 +57,17 @@ export function AdmissionsSection() {
           {/* Right */}
           <div>
             <div className="rounded-[18px] bg-slate-900/82 p-3.5 text-sm border border-slate-600/75">
-              <div className="text-[15px] text-gray-200 mb-1">Transparent fee structure</div>
+              <div className="text-[15px] text-gray-200 mb-1">
+                Transparent fee structure
+              </div>
               <div className="mb-2 text-gray-200">
-                Fee details are shared clearly with parents along with any additional facility
-                charges.
+                Fee details are shared clearly with parents along with any
+                additional facility charges.
               </div>
               <ul className="space-y-1.5 text-sm text-blue-100 mb-3">
                 {[
-                  'Age-appropriate class placement',
-                  'Guidance on transport, uniforms & books',
+                  "Age-appropriate class placement",
+                  "Guidance on transport, uniforms & books",
                   "Parents testimonials available for reference",
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-center gap-2">

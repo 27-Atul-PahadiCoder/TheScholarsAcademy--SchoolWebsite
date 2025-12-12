@@ -1,7 +1,8 @@
+import { Suspense, lazy } from "react";
+import type { ComponentType } from "react";
 import { TopStrip } from "./components/shared/TopStrip";
 import { Header } from "./components/shared/Header";
-import { AdminDashboard } from "./components/admin/AdminDashboard";
-import { AdminButton } from "./components/admin/AdminButton";
+import { Footer } from "./components/shared/Footer";
 import ScholarsAcademyPage from "./components/pages/BioSection";
 import { Hero } from "./components/shared/Hero";
 import { AgendaSection } from "./components/sections/AgendaSection";
@@ -9,417 +10,205 @@ import { AcademicsSection } from "./components/academics/AcademicsSection";
 import { CampusSection } from "./components/campus/CampusSection";
 import { AdmissionsSection } from "./components/admissions/AdmissionsSection";
 import { ContactSection } from "./components/contact/ContactSection";
-import { Footer } from "./components/shared/Footer";
-import { AboutUs } from "./components/pages/AboutUs";
-import { OurVision } from "./components/pages/OurVision";
-import { FoundersMessage } from "./components/pages/FoundersMessage";
-import { OurStaff } from "./components/pages/OurStaff";
-import { OurManagement } from "./components/pages/OurManagement";
-import { TheLearning } from "./components/pages/TheLearning";
-import { AcademicsCurriculum } from "./components/academics/AcademicsCurriculum";
-import { AcademicsFaculty } from "./components/academics/AcademicsFaculty";
-import { AcademicsResults } from "./components/academics/AcademicsResults";
-import { AcademicsPrograms } from "./components/academics/AcademicsPrograms";
-import { Sports } from "./components/beyond/Sports";
-import ArtsCulture from "./components/beyond/ArtsCulture";
-import { ClubsSocieties } from "./components/beyond/ClubsSocieties";
-import { CommunityService } from "./components/beyond/CommunityService";
-import { AdmissionsProcess } from "./components/admissions/AdmissionsProcess";
-import { AdmissionsFees } from "./components/admissions/AdmissionsFees";
-import { AdmissionsRequirements } from "./components/admissions/AdmissionsRequirements";
-import { AdmissionsContact } from "./components/admissions/AdmissionsContact";
-import { CampusFacilities } from "./components/campus/CampusFacilities";
-import { CampusAccommodation } from "./components/campus/CampusAccommodation";
-import { CampusEvents } from "./components/campus/CampusEvents";
-import { SchoolGallery } from "./components/campus/SchoolGallery";
-import { ContactOffice } from "./components/contact/ContactOffice";
-import { ContactAdmissions } from "./components/contact/ContactAdmissions";
-import { ContactSupport } from "./components/contact/ContactSupport";
-import { ContactForm } from "./components/contact/ContactForm";
 import { useScrollReveal } from "./hooks/useScrollReveal";
+
+const lazyNamedComponent = (
+  importer: () => Promise<Record<string, unknown>>,
+  exportName: string
+) =>
+  lazy(async () => {
+    const module = await importer();
+    const Component = module[exportName];
+    if (typeof Component !== "function") {
+      throw new Error(
+        `Component "${exportName}" is not available for lazy loading.`
+      );
+    }
+    return { default: Component as ComponentType<any> };
+  });
+
+const lazyPages = {
+  about: lazyNamedComponent(
+    () => import("./components/pages/AboutUs"),
+    "AboutUs"
+  ),
+  vision: lazyNamedComponent(
+    () => import("./components/pages/OurVision"),
+    "OurVision"
+  ),
+  founders: lazyNamedComponent(
+    () => import("./components/pages/FoundersMessage"),
+    "FoundersMessage"
+  ),
+  staff: lazyNamedComponent(
+    () => import("./components/pages/OurStaff"),
+    "OurStaff"
+  ),
+  management: lazyNamedComponent(
+    () => import("./components/pages/OurManagement"),
+    "OurManagement"
+  ),
+  learning: lazyNamedComponent(
+    () => import("./components/pages/TheLearning"),
+    "TheLearning"
+  ),
+  academicsCurriculum: lazyNamedComponent(
+    () => import("./components/academics/AcademicsCurriculum"),
+    "AcademicsCurriculum"
+  ),
+  academicsFaculty: lazyNamedComponent(
+    () => import("./components/academics/AcademicsFaculty"),
+    "AcademicsFaculty"
+  ),
+  academicsResults: lazyNamedComponent(
+    () => import("./components/academics/AcademicsResults"),
+    "AcademicsResults"
+  ),
+  academicsPrograms: lazyNamedComponent(
+    () => import("./components/academics/AcademicsPrograms"),
+    "AcademicsPrograms"
+  ),
+  sports: lazyNamedComponent(
+    () => import("./components/beyond/Sports"),
+    "Sports"
+  ),
+  gamifiedLearning: lazyNamedComponent(
+    () => import("./components/Gamefied-Learning/components/ScholarsApp"),
+    "default"
+  ),
+  arts: lazyNamedComponent(
+    () => import("./components/beyond/ArtsCulture"),
+    "ArtsCulture"
+  ),
+  clubs: lazyNamedComponent(
+    () => import("./components/beyond/ClubsSocieties"),
+    "ClubsSocieties"
+  ),
+  community: lazyNamedComponent(
+    () => import("./components/beyond/CommunityService"),
+    "CommunityService"
+  ),
+  admissionsProcess: lazyNamedComponent(
+    () => import("./components/admissions/AdmissionsProcess"),
+    "AdmissionsProcess"
+  ),
+  admissionsFees: lazyNamedComponent(
+    () => import("./components/admissions/AdmissionsFees"),
+    "AdmissionsFees"
+  ),
+  admissionsRequirements: lazyNamedComponent(
+    () => import("./components/admissions/AdmissionsRequirements"),
+    "AdmissionsRequirements"
+  ),
+  admissionsContact: lazyNamedComponent(
+    () => import("./components/admissions/AdmissionsContact"),
+    "AdmissionsContact"
+  ),
+  campusFacilities: lazyNamedComponent(
+    () => import("./components/campus/CampusFacilities"),
+    "CampusFacilities"
+  ),
+  campusAccommodation: lazyNamedComponent(
+    () => import("./components/campus/CampusAccommodation"),
+    "CampusAccommodation"
+  ),
+  campusEvents: lazyNamedComponent(
+    () => import("./components/campus/CampusEvents"),
+    "CampusEvents"
+  ),
+  campusGallery: lazyNamedComponent(
+    () => import("./components/campus/SchoolGallery"),
+    "SchoolGallery"
+  ),
+  contactOffice: lazyNamedComponent(
+    () => import("./components/contact/ContactOffice"),
+    "ContactOffice"
+  ),
+  contactAdmissions: lazyNamedComponent(
+    () => import("./components/contact/ContactAdmissions"),
+    "ContactAdmissions"
+  ),
+  contactSupport: lazyNamedComponent(
+    () => import("./components/contact/ContactSupport"),
+    "ContactSupport"
+  ),
+  contactForm: lazyNamedComponent(
+    () => import("./components/contact/ContactForm"),
+    "ContactForm"
+  ),
+  admin: lazyNamedComponent(
+    () => import("./components/admin/AdminDashboard"),
+    "AdminDashboard"
+  ),
+};
+
+type RouteConfig = {
+  component: ComponentType<any>;
+  standalone?: boolean;
+};
+
+const routedPages: Record<string, RouteConfig> = {
+  "/admin": { component: lazyPages.admin, standalone: true },
+  "/about-us": { component: lazyPages.about },
+  "/our-vision": { component: lazyPages.vision },
+  "/founders-message": { component: lazyPages.founders },
+  "/our-staff": { component: lazyPages.staff },
+  "/our-management": { component: lazyPages.management },
+  "/academics-curriculum": { component: lazyPages.academicsCurriculum },
+  "/academics-faculty": { component: lazyPages.academicsFaculty },
+  "/academics-results": { component: lazyPages.academicsResults },
+  "/academics-programs": { component: lazyPages.academicsPrograms },
+  "/theLearning": { component: lazyPages.learning },
+  "/sports": { component: lazyPages.sports },
+  "/gamified-learning": { component: lazyPages.gamifiedLearning },
+  "/arts-culture": { component: lazyPages.arts },
+  "/clubs-societies": { component: lazyPages.clubs },
+  "/community-service": { component: lazyPages.community },
+  "/admissions-process": { component: lazyPages.admissionsProcess },
+  "/admissions-fees": { component: lazyPages.admissionsFees },
+  "/admissions-requirements": {
+    component: lazyPages.admissionsRequirements,
+  },
+  "/admissions-contact": { component: lazyPages.admissionsContact },
+  "/campus-facilities": { component: lazyPages.campusFacilities },
+  "/campus-accommodation": { component: lazyPages.campusAccommodation },
+  "/campus-events": { component: lazyPages.campusEvents },
+  "/campus-gallery": { component: lazyPages.campusGallery },
+  "/contact-office": { component: lazyPages.contactOffice },
+  "/contact-admissions": { component: lazyPages.contactAdmissions },
+  "/contact-support": { component: lazyPages.contactSupport },
+  "/contact-form": { component: lazyPages.contactForm },
+};
+
+function renderLazyPage(Component: ComponentType<any>, standalone = false) {
+  const content = (
+    <Suspense fallback={<div className="py-20 text-center">Loading…</div>}>
+      <Component />
+    </Suspense>
+  );
+
+  if (standalone) {
+    return content;
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col" id="top">
+      <TopStrip />
+      <Header />
+      <main className="flex-1">{content}</main>
+      <Footer />
+    </div>
+  );
+}
 
 export default function App() {
   useScrollReveal();
-  const path = window.location.pathname;
+  const path = typeof window !== "undefined" ? window.location.pathname : "/";
 
-  // Handle admin button click
-  const handleAdminClick = () => {
-    window.location.pathname = "/admin";
-  };
+  const route = routedPages[path];
 
-  // Admin Dashboard Route
-  if (path === "/admin") {
-    return <AdminDashboard />;
-  }
-
-  // Render individual pages based on URL path
-  if (path === "/about-us") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <AboutUs />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/our-vision") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <OurVision />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/founders-message") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <FoundersMessage />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/our-staff") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <OurStaff />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/our-management") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <OurManagement />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  // Academics
-  if (path === "/academics-curriculum") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <AcademicsCurriculum />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/academics-faculty") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <AcademicsFaculty />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/academics-results") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <AcademicsResults />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/academics-programs") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <AcademicsPrograms />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/theLearning") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <TheLearning />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  // Beyond Academics
-  if (path === "/sports") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <Sports />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/arts-culture") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <ArtsCulture />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/clubs-societies") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <ClubsSocieties />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/community-service") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <CommunityService />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  // Admissions
-  if (path === "/admissions-process") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <AdmissionsProcess />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/admissions-fees") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <AdmissionsFees />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/admissions-requirements") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <AdmissionsRequirements />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/admissions-contact") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <AdmissionsContact />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  // School Life
-  if (path === "/campus-facilities") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <CampusFacilities />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/campus-accommodation") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <CampusAccommodation />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/campus-events") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <CampusEvents />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/campus-gallery") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <SchoolGallery />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  // Contact
-  if (path === "/contact-office") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <ContactOffice />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/contact-admissions") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <ContactAdmissions />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/contact-support") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <ContactSupport />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
-  }
-
-  if (path === "/contact-form") {
-    return (
-      <div className="min-h-screen flex flex-col" id="top">
-        <TopStrip />
-        <Header />
-        <main className="flex-1">
-          <ContactForm />
-        </main>
-        <Footer />
-        <AdminButton onClick={handleAdminClick} />
-      </div>
-    );
+  if (route) {
+    return renderLazyPage(route.component, route.standalone);
   }
 
   // Default home page
@@ -437,7 +226,6 @@ export default function App() {
         <ContactSection />
       </main>
       <Footer />
-      <AdminButton onClick={handleAdminClick} />
     </div>
   );
 }

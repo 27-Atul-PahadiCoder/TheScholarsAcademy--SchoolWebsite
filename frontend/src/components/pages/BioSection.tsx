@@ -140,6 +140,8 @@ const MobileNavbar: React.FC = () => {
 };
 
 const HeroSection: React.FC = () => {
+  const [showHeroPoster, setShowHeroPoster] = useState(true);
+
   return (
     <section
       id="hero"
@@ -153,7 +155,32 @@ const HeroSection: React.FC = () => {
           disablePointerEvents
           className="absolute inset-0"
           fillMode="cover"
+          onFirstPlay={() => {
+            // Hide the poster image shortly after the video actually starts.
+            window.setTimeout(() => setShowHeroPoster(false), 1000);
+          }}
+          onPlaybackStateChange={(state) => {
+            if (state === "buffering" || state === "unstarted") {
+              // If the video is stuck or not started, show the fallback image.
+              setShowHeroPoster(true);
+            }
+            if (state === "playing") {
+              // When playback resumes, hide the image and keep playing from the
+              // current point in time.
+              setShowHeroPoster(false);
+            }
+          }}
         />
+        {showHeroPoster && (
+          <div className="absolute inset-0">
+            <img
+              src="/images/PhotoMomemts/P1040609-scaled.jpg"
+              alt="Scholars Academy campus"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-slate-950/50" />
+          </div>
+        )}
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-slate-950/50" />
       </div>
@@ -242,7 +269,7 @@ const HeroSection: React.FC = () => {
           <div className="relative rounded-3xl bg-slate-900/80 p-2 shadow-2xl shadow-black/50 border border-slate-800/80 transition-all duration-300 hover:shadow-[0_0_40px_rgba(99,102,241,0.6),0_0_80px_rgba(99,102,241,0.4)] hover:scale-105 hover:border-indigo-500/50 mt-[400px] mb-[-2px] group">
             <div className="overflow-hidden rounded-2xl bg-slate-900">
               <img
-                src="ScaledFounderImage.jpg"
+                src="/images/Faculty-Staff/ScaledFounderImage.jpg"
                 alt="Students at The Scholar's Academy"
                 className="h-64 w-full object-cover sm:h-72 lg:h-80 opacity-95 transition-transform duration-300 group-hover:scale-105"
               />
@@ -536,6 +563,59 @@ const AtAGlanceSection: React.FC = () => {
   );
 };
 
+const ParentTestimonialCard: React.FC<{ src: string; index: number }> = ({
+  src,
+  index,
+}) => {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const handlePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.playsInline = true;
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => {
+        // Autoplay might be blocked; ignore.
+      });
+    }
+  };
+
+  const handlePause = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.pause();
+    video.currentTime = 0;
+  };
+
+  return (
+    <div
+      className="relative rounded-2xl overflow-hidden bg-black shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
+      onMouseEnter={handlePlay}
+      onFocus={handlePlay}
+      onMouseLeave={handlePause}
+      onBlur={handlePause}
+    >
+      <div className="relative w-full" style={{ paddingBottom: "178%" }}>
+        <video
+          ref={videoRef}
+          className="absolute inset-0 w-full h-full object-cover"
+          src={src}
+          controls
+          muted
+          playsInline
+          preload="metadata"
+          controlsList="nodownload"
+        />
+      </div>
+      <p className="absolute bottom-2 left-2 right-2 text-sm text-white font-semibold bg-black/60 px-2 py-1 rounded-md">
+        Parent Testimonial {index + 1}
+      </p>
+    </div>
+  );
+};
+
 const ParentsTestimonialsVideos: React.FC = () => {
   const videos = [
     "https://scholarspithoragarh.com/wp-content/uploads/2024/02/parents-testimonials-final.mp4",
@@ -557,30 +637,9 @@ const ParentsTestimonialsVideos: React.FC = () => {
           </p>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
           {videos.map((src, index) => (
-            <div
-              key={src}
-              className="relative rounded-2xl overflow-hidden bg-black shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
-            >
-              <div
-                className="relative w-full"
-                style={{ paddingBottom: "100%" }}
-              >
-                {" "}
-                {/* Square container */}
-                <video
-                  className="absolute inset-0 w-full h-full object-cover"
-                  src={src}
-                  controls
-                  preload="metadata"
-                  controlsList="nodownload"
-                />
-              </div>
-              <p className="absolute bottom-2 left-2 right-2 text-sm text-white font-semibold bg-black/60 px-2 py-1 rounded-md">
-                Parent Testimonial {index + 1}
-              </p>
-            </div>
+            <ParentTestimonialCard key={src} src={src} index={index} />
           ))}
         </div>
       </div>

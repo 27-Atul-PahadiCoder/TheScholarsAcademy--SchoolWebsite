@@ -8,6 +8,17 @@ interface VideoPlayerProps {
   disablePointerEvents?: boolean;
   className?: string;
   fillMode?: "contain" | "cover";
+  /**
+   * Called the first time the video actually starts playing.
+   */
+  onFirstPlay?: () => void;
+  /**
+   * Called whenever the underlying YouTube player state changes.
+   * Useful for reacting to buffering vs playing, etc.
+   */
+  onPlaybackStateChange?: (
+    state: "unstarted" | "buffering" | "playing" | "paused" | "ended" | "cued"
+  ) => void;
 }
 
 // Cache the loading promise so the script loads only once
@@ -56,10 +67,13 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({
   disablePointerEvents = false,
   className,
   fillMode = "contain",
+  onFirstPlay,
+  onPlaybackStateChange,
 }) => {
   const playerRef = useRef<any | null>(null); // YouTube player reference
   const playerContainerRef = useRef<HTMLDivElement | null>(null); // Ref to hold the iframe
   const [isMuted, setIsMuted] = useState<boolean>(true); // Mute state
+  const hasFiredFirstPlayRef = useRef(false);
 
   const enforcePlaybackQuality = useCallback(() => {
     const preferredLevels = ["hd1080", "hd720", "large"];
@@ -165,12 +179,59 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({
           },
           onStateChange: (event: any) => {
             const YTState = (window as any).YT?.PlayerState;
-            if (YTState && event.data === YTState.ENDED) {
-              event.target.playVideo();
-              enforcePlaybackQuality();
-            }
-            if (YTState && event.data === YTState.PLAYING) {
-              enforcePlaybackQuality();
+            if (YTState) {
+              // Map numeric YouTube states to friendly string labels
+              let mappedState:
+                | "unstarted"
+                | "buffering"
+                | "playing"
+                | "paused"
+                | "ended"
+                | "cued"
+                | null = null;
+
+              switch (event.data) {
+                case YTState.UNSTARTED:
+                  mappedState = "unstarted";
+                  break;
+                case YTState.BUFFERING:
+                  mappedState = "buffering";
+                  break;
+                case YTState.PLAYING:
+                  mappedState = "playing";
+                  break;
+                case YTState.PAUSED:
+                  mappedState = "paused";
+                  break;
+                case YTState.ENDED:
+                  mappedState = "ended";
+                  break;
+                case YTState.CUED:
+                  mappedState = "cued";
+                  break;
+                default:
+                  mappedState = null;
+              }
+
+              if (mappedState && typeof onPlaybackStateChange === "function") {
+                onPlaybackStateChange(mappedState);
+              }
+
+              if (event.data === YTState.ENDED) {
+                event.target.playVideo();
+                enforcePlaybackQuality();
+              }
+
+              if (event.data === YTState.PLAYING) {
+                enforcePlaybackQuality();
+                if (
+                  !hasFiredFirstPlayRef.current &&
+                  typeof onFirstPlay === "function"
+                ) {
+                  hasFiredFirstPlayRef.current = true;
+                  onFirstPlay();
+                }
+              }
             }
           },
         },

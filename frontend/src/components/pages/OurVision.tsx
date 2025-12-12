@@ -61,7 +61,7 @@ export function OurVision() {
       >
         <div className="absolute inset-0">
           <img
-            src="/PhotoMomemts/P1040609-scaled.jpg"
+            src="/images/PhotoMomemts/P1040609-scaled.jpg"
             alt="Scholars Academy campus"
             className="w-full h-full object-cover"
             loading="lazy"
@@ -203,7 +203,7 @@ export function OurVision() {
             </blockquote>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 px-2 md:px-4 my-6">
             {strategicValues.map((value) => (
               <article
                 key={value.title}
@@ -219,22 +219,22 @@ export function OurVision() {
             ))}
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-2 px-2 md:px-4 my-6">
             <img
-              src="/PhotoMomemts/P1050333-300x169.jpg"
+              src="/images/PhotoMomemts/P1050333-300x169.jpg"
               alt="Students collaborating"
               className="w-full h-80 object-cover rounded-3xl shadow-lg"
               loading="lazy"
             />
             <img
-              src="/PhotoMomemts/P1040016-300x169.jpg"
+              src="/images/PhotoMomemts/P1040016-300x169.jpg"
               alt="Learning studios"
               className="w-full h-80 object-cover rounded-3xl shadow-lg"
               loading="lazy"
             />
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-3">
+          <div className="grid gap-8 lg:grid-cols-3 px-2 md:px-4 my-6">
             {strategicObjectives.map((objective) => (
               <article
                 key={objective.title}
@@ -258,7 +258,7 @@ export function OurVision() {
             ))}
           </div>
 
-          <div className="bg-slate-900 text-white rounded-3xl p-10 grid gap-8 lg:grid-cols-[2fr,1fr] items-center">
+          <div className="bg-slate-900 text-white rounded-3xl p-14 my-14 grid gap-8 lg:grid-cols-[2fr,1fr] items-center">
             <div>
               <h3 className="text-3xl font-semibold mb-4">
                 Expectation from Parents
