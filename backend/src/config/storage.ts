@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import { env } from "./env";
 
-const uploadDir = path.resolve(process.cwd(), env.MEDIA_UPLOAD_DIR);
+const uploadDir = path.resolve(process.cwd(), env.MEDIA_DIR);
 
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });

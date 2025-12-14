@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.json",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "seed:media": "node --loader ts-node/esm src/scripts/seed-media.ts"
   },
   "dependencies": {
     "@pinecone-database/pinecone": "^2.2.2",
@@ -32,7 +33,9 @@
     "@types/morgan": "^1.9.6",
     "@types/multer": "^1.4.11",
     "@types/node": "^20.11.30",
+    "replace-in-file": "^8.4.0",
     "ts-node-dev": "^2.0.0",
+    "tsx": "^4.16.2",
     "typescript": "^5.4.5"
   }
 }

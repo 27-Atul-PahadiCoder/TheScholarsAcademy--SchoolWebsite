@@ -2,7 +2,11 @@ import type { Request, Response } from "express";
 import { AdminService } from "./admin.service";
 import { sendSuccess } from "../../utils/http";
 
-const service = new AdminService();
+let service: AdminService;
+
+export const initAdminController = () => {
+  service = new AdminService();
+};
 
 export const AdminController = {
   login: async (req: Request, res: Response) => {

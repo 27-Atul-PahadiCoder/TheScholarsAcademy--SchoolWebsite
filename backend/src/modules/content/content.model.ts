@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import { z } from "zod";
 
 const localizedString = z.object({
@@ -109,4 +109,4 @@ const PageContentSchema = new Schema(
 );
 
 export const PageContentModel =
-  models.PageContent ?? model("PageContent", PageContentSchema, "page_content");
+  mongoose.models.PageContent ?? model("PageContent", PageContentSchema, "page_content");

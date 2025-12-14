@@ -11,7 +11,7 @@ type EnvShape = {
   PINECONE_INDEX: string;
   PINECONE_NAMESPACE: string;
   JWT_SECRET: string;
-  MEDIA_UPLOAD_DIR: string;
+  MEDIA_DIR: string;
   CDN_BASE_URL: string;
 };
 
@@ -45,6 +45,6 @@ export const env: EnvShape = {
   PINECONE_INDEX: requireValue(process.env.PINECONE_INDEX, "PINECONE_INDEX"),
   PINECONE_NAMESPACE: process.env.PINECONE_NAMESPACE ?? "school-content",
   JWT_SECRET: requireValue(process.env.JWT_SECRET, "JWT_SECRET"),
-  MEDIA_UPLOAD_DIR: process.env.MEDIA_UPLOAD_DIR ?? "uploads",
+  MEDIA_DIR: process.env.MEDIA_UPLOAD_DIR ?? "uploads",
   CDN_BASE_URL: process.env.CDN_BASE_URL ?? "",
 };
