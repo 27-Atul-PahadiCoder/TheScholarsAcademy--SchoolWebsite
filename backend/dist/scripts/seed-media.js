@@ -8,9 +8,7 @@ const SCAN_DIRECTORIES = [
     "../../frontend/build/assets",
 ];
 async function seedMedia() {
-    console.log("Connecting to MongoDB...");
     await connectMongo();
-    console.log("Connected.");
     let filesProcessed = 0;
     for (const dir of SCAN_DIRECTORIES) {
         const targetDir = path.resolve(__dirname, dir);
@@ -60,7 +58,6 @@ async function seedMedia() {
     }
     console.log(`\nScan complete. Added ${filesProcessed} new media records.`);
     await mongoose.disconnect();
-    console.log("Disconnected from MongoDB.");
 }
 function getMimeType(extension) {
     switch (extension) {

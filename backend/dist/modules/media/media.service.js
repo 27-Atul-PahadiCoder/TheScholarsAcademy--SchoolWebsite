@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs/promises";
-import replace from "replace-in-file";
+import * as replace from "replace-in-file";
 import { logger } from "../../utils/logger";
 const MEDIA_ROOT_DIRS = [
     path.resolve(process.cwd(), "../frontend/public/images"),
@@ -48,10 +48,19 @@ export class MediaService {
                     }
                     const relativePath = path.relative(path.resolve(process.cwd(), ".."), filePath);
                     logger.info({ relativePath }, "Found media file");
+                    let url = `/${relativePath.replace(/\\/g, "/")}`;
+                    if (dir.includes('public')) {
+                        const publicRelativePath = path.relative(path.resolve(process.cwd(), "../frontend/public"), filePath);
+                        url = `/${publicRelativePath.replace(/\\/g, "/")}`;
+                    }
+                    else if (dir.includes('assets')) {
+                        const assetsRelativePath = path.relative(path.resolve(process.cwd(), "../frontend/src/assets"), filePath);
+                        url = `/src/assets/${assetsRelativePath.replace(/\\/g, "/")}`;
+                    }
                     allMedia.push({
                         id: Buffer.from(relativePath).toString("base64"),
                         filename: path.basename(file),
-                        url: `/${relativePath.replace(/\\/g, "/")}`,
+                        url,
                         mime_type: mimeType,
                         size: fileStats.size,
                         createdAt: fileStats.mtime,
@@ -96,7 +105,7 @@ export class MediaService {
             to: newUrl,
         };
         try {
-            const results = await replace(options);
+            const results = await replace.default(options);
             logger.info({ results }, "File content replacement results");
         }
         catch (error) {
