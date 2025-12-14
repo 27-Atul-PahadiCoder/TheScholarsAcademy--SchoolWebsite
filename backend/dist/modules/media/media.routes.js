@@ -4,5 +4,8 @@ import { upload } from "../../config/storage";
 const router = Router();
 router.get("/", MediaController.list);
 router.post("/upload", upload.single("file"), MediaController.upload);
+router.patch("/rename", MediaController.rename);
+router.patch("/change-path", MediaController.changePath);
+router.delete("/delete", MediaController.delete);
 export const mediaRouter = router;
 //# sourceMappingURL=media.routes.js.map

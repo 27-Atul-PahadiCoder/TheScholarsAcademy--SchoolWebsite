@@ -1,8 +1,12 @@
-import { Pinecone, Vector } from "@pinecone-database/pinecone";
+import { Pinecone } from "@pinecone-database/pinecone";
 import { env } from "./env";
 import { logger } from "../utils/logger";
 
-type VectorPayload = Vector<Record<string, string | number>>;
+interface UpsertVector {
+    id: string;
+    values: number[];
+    metadata: Record<string, string | number | boolean>;
+}
 
 let pinecone: Pinecone | null = null;
 let isReady = false;
@@ -19,23 +23,23 @@ export const initVectorClient = async () => {
 };
 
 export const vectorOperations = {
-  upsert: async (vectors: VectorPayload[]) => {
+  upsert: async (vectors: UpsertVector[]) => {
     if (!pinecone) {
       await initVectorClient();
     }
     const index = pinecone!.Index(env.PINECONE_INDEX);
-    await index.upsert(vectors, { namespace: env.PINECONE_NAMESPACE });
+    await index.namespace(env.PINECONE_NAMESPACE).upsert(vectors);
   },
   query: async (vector: number[], topK = 5) => {
     if (!pinecone) {
       await initVectorClient();
     }
     const index = pinecone!.Index(env.PINECONE_INDEX);
-    return index.query({
+    return index.namespace(env.PINECONE_NAMESPACE).query({
       vector,
       topK,
-      namespace: env.PINECONE_NAMESPACE,
       includeMetadata: true,
     });
   },
 };
+

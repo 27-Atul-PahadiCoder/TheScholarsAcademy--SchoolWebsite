@@ -1,6 +1,9 @@
 import { AdminService } from "./admin.service";
 import { sendSuccess } from "../../utils/http";
-const service = new AdminService();
+let service;
+export const initAdminController = () => {
+    service = new AdminService();
+};
 export const AdminController = {
     login: async (req, res) => {
         const result = await service.login(req.body.email, req.body.password);

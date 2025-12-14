@@ -1,3 +1,4 @@
+import type { Express } from "express";
 import path from "path";
 import fs from "fs/promises";
 import * as replace from "replace-in-file";
@@ -12,12 +13,13 @@ const MEDIA_ROOT_DIRS = [
 
 export interface IMedia {
   id: string;
-  filename: string;
+  filename:string;
   url: string;
   mime_type: string;
   size: number;
   createdAt: Date;
-  location: string; // Added location
+  location: string; 
+  description?: string;
 }
 
 function getMimeType(extension: string): string | null {
@@ -67,11 +69,20 @@ export class MediaService {
 
           const relativePath = path.relative(path.resolve(process.cwd(), ".."), filePath);
           logger.info({ relativePath }, "Found media file");
+          
+          let url = `/${relativePath.replace(/\\/g, "/")}`;
+          if(dir.includes('public')) {
+            const publicRelativePath = path.relative(path.resolve(process.cwd(), "../frontend/public"), filePath);
+            url = `/${publicRelativePath.replace(/\\/g, "/")}`;
+          } else if(dir.includes('assets')) {
+            const assetsRelativePath = path.relative(path.resolve(process.cwd(), "../frontend/src/assets"), filePath);
+            url = `/src/assets/${assetsRelativePath.replace(/\\/g, "/")}`;
+          }
 
           allMedia.push({
             id: Buffer.from(relativePath).toString("base64"),
             filename: path.basename(file),
-            url: `/${relativePath.replace(/\\/g, "/")}`,
+            url,
             mime_type: mimeType,
             size: fileStats.size,
             createdAt: fileStats.mtime,
@@ -84,6 +95,28 @@ export class MediaService {
     }
     logger.info({ count: allMedia.length }, "Media scan complete.");
     return allMedia.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async recordUpload(
+    file: Express.Multer.File,
+    description?: string
+  ): Promise<IMedia> {
+    const relativePath = path.relative(
+      path.resolve(process.cwd(), ".."),
+      file.path
+    );
+    const fileStats = await fs.stat(file.path);
+    const media: IMedia = {
+      id: Buffer.from(relativePath).toString("base64"),
+      filename: file.filename,
+      url: `/uploads/${file.filename}`,
+      mime_type: file.mimetype,
+      size: file.size,
+      createdAt: fileStats.mtime,
+      location: "/uploads",
+    };
+    logger.info({ media, description }, "Recorded new media upload");
+    return media;
   }
 
   async renameMedia(oldPath: string, newNameWithoutExt: string) {
@@ -104,7 +137,7 @@ export class MediaService {
     };
 
     try {
-      const results = await replace(options);
+      const results = await replace.default(options);
       logger.info({ results }, "File content replacement results");
     } catch (error) {
       logger.error({ error }, "Error during file content replacement");
@@ -120,4 +153,5 @@ export class MediaService {
     // ... (rest of the file remains the same)
   }
 }
+
 

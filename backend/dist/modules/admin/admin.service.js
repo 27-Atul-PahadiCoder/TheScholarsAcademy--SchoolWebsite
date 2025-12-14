@@ -1,27 +1,24 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { getSqlClient } from "../../config/sqlClient";
+import { AdminModel } from "./admin.model";
 import { env } from "../../config/env";
 export class AdminService {
     async ensureSeedUser() {
-        const db = getSqlClient();
-        const existing = await db("admin_users").first();
-        if (existing)
-            return existing;
-        const hashed = await bcrypt.hash("ChangeMe123!", 12);
-        const [user] = await db("admin_users")
-            .insert({
+        // For simplicity, we'll delete the user if it exists to ensure the password is set correctly.
+        // In a real-world scenario, you would have a more robust "update password" or "forgot password" flow.
+        await AdminModel.deleteOne({ email: "founder@school.com" }).exec();
+        const hashed = await bcrypt.hash("schol@r2025", 12);
+        const user = new AdminModel({
             email: "founder@school.com",
             name: "Super Admin",
             password_hash: hashed,
             role: "admin",
-        })
-            .returning(["id", "email", "name", "role"]);
+        });
+        await user.save();
         return user;
     }
     async login(email, password) {
-        const db = getSqlClient();
-        const user = await db("admin_users").where({ email }).first();
+        const user = await AdminModel.findOne({ email }).exec();
         if (!user) {
             return null;
         }

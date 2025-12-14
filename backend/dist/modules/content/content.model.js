@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import { z } from "zod";
 const localizedString = z.object({
     locale: z.string().min(2),
@@ -84,5 +84,5 @@ const PageContentSchema = new Schema({
     updatedAt: { type: Date, default: Date.now },
     summaryEmbedding: [Number],
 }, { timestamps: true });
-export const PageContentModel = models.PageContent ?? model("PageContent", PageContentSchema, "page_content");
+export const PageContentModel = mongoose.models.PageContent ?? model("PageContent", PageContentSchema, "page_content");
 //# sourceMappingURL=content.model.js.map

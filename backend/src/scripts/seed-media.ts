@@ -11,15 +11,16 @@ const SCAN_DIRECTORIES = [
 ];
 
 async function seedMedia() {
-  console.log("Connecting to MongoDB...");
+
   await connectMongo();
-  console.log("Connected.");
+  
 
   let filesProcessed = 0;
 
   for (const dir of SCAN_DIRECTORIES) {
     const targetDir = path.resolve(__dirname, dir);
     console.log(`\nScanning directory: ${targetDir}`);
+    
 
     try {
       const files = await fs.readdir(targetDir, { withFileTypes: true });
@@ -72,7 +73,7 @@ async function seedMedia() {
 
   console.log(`\nScan complete. Added ${filesProcessed} new media records.`);
   await mongoose.disconnect();
-  console.log("Disconnected from MongoDB.");
+  
 }
 
 function getMimeType(extension: string): string | null {

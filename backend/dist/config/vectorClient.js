@@ -19,17 +19,16 @@ export const vectorOperations = {
             await initVectorClient();
         }
         const index = pinecone.Index(env.PINECONE_INDEX);
-        await index.upsert(vectors, { namespace: env.PINECONE_NAMESPACE });
+        await index.namespace(env.PINECONE_NAMESPACE).upsert(vectors);
     },
     query: async (vector, topK = 5) => {
         if (!pinecone) {
             await initVectorClient();
         }
         const index = pinecone.Index(env.PINECONE_INDEX);
-        return index.query({
+        return index.namespace(env.PINECONE_NAMESPACE).query({
             vector,
             topK,
-            namespace: env.PINECONE_NAMESPACE,
             includeMetadata: true,
         });
     },
