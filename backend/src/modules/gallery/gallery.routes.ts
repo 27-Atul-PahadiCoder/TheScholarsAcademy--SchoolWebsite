@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { upload } from "../../config/storage";
-import { requireAdmin } from "../../middleware/auth";
-import { GalleryController } from "./gallery.controller";
+import { upload } from "../../config/storage.js";
+import { requireAdmin } from "../../middleware/auth.js";
+import { GalleryController } from "./gallery.controller.js";
 
 const router = Router();
 

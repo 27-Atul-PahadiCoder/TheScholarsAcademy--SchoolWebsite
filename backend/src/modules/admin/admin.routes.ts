@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { z } from "zod";
-import { AdminController } from "./admin.controller";
-import { validateRequest } from "../../middleware/validateRequest";
+import { AdminController } from "./admin.controller.js";
+import { validateRequest } from "../../middleware/validateRequest.js";
 
 const router = Router();
 

@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { ContentController } from "./content.controller";
-import { validateRequest } from "../../middleware/validateRequest";
-import { upsertContentSchema } from "./content.model";
+import { ContentController } from "./content.controller.js";
+import { validateRequest } from "../../middleware/validateRequest.js";
+import { upsertContentSchema } from "./content.model.js";
 
 const router = Router();
 

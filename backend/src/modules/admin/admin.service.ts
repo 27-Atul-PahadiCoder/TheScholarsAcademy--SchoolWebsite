@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { AdminModel } from "./admin.model";
-import { env } from "../../config/env";
+import { AdminModel } from "./admin.model.js";
+import { env } from "../../config/env.js";
 
 export class AdminService {
   async ensureSeedUser() {

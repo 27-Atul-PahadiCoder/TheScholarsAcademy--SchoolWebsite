@@ -1,9 +1,9 @@
 import { v4 as uuid } from "uuid";
-import { getSqlClient } from "../../config/sqlClient";
-import { PageContentModel } from "./content.model";
-import { ContentUpsertPayload, SectionInput } from "./content.types";
-import { vectorOperations } from "../../config/vectorClient";
-import { logger } from "../../utils/logger";
+import { getSqlClient } from "../../config/sqlClient.js";
+import { PageContentModel } from "./content.model.js";
+import { ContentUpsertPayload, SectionInput } from "./content.types.js";
+import { vectorOperations } from "../../config/vectorClient.js";
+import { logger } from "../../utils/logger.js";
 
 export class ContentService {
   async listPages() {

@@ -1,11 +1,11 @@
-import { app } from "./app";
-import { env, startupError } from "./config/env";
-// import { connectSql } from "./config/sqlClient";
-import connectMongo from "./config/mongoClient";
-// import { initVectorClient } from "./config/vectorClient";
-import { initMediaController } from "./modules/media/media.controller";
-import { initAdminController } from "./modules/admin/admin.controller";
-import { logger } from "./utils/logger";
+import { app } from "./app.js";
+import { env, startupError } from "./config/env.js";
+// import { connectSql } from "./config/sqlClient.js";
+import connectMongo from "./config/mongoClient.js";
+// import { initVectorClient } from "./config/vectorClient.js";
+import { initMediaController } from "./modules/media/media.controller.js";
+import { initAdminController } from "./modules/admin/admin.controller.js";
+import { logger } from "./utils/logger.js";
 
 if (startupError) {
   logger.error({ error: startupError }, "FATAL: Backend failed to start");

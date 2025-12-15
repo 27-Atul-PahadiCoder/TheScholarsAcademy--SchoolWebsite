@@ -2,9 +2,9 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import { registerRoutes } from "./routes";
-import { errorHandler } from "./middleware/errorHandler";
-import { loadEnv, env } from "./config/env";
+import { registerRoutes } from "./routes/index.js";
+import { errorHandler } from "./middleware/errorHandler.js";
+import { loadEnv, env } from "./config/env.js";
 
 loadEnv();
 

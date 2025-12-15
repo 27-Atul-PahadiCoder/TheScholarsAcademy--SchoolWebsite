@@ -1,7 +1,7 @@
 import { v4 as uuid } from "uuid";
-import { getSqlClient } from "../../config/sqlClient";
-import { MediaService } from "../media/media.service";
-import type { GalleryPhoto, GalleryUpdatePayload } from "./gallery.types";
+import { getSqlClient } from "../../config/sqlClient.js";
+import { MediaService } from "../media/media.service.js";
+import type { GalleryPhoto, GalleryUpdatePayload } from "./gallery.types.js";
 
 const TABLE = "page_gallery_items";
 

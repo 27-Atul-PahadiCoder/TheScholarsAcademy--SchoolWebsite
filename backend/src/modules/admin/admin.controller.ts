@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { AdminService } from "./admin.service";
-import { sendSuccess } from "../../utils/http";
+import { AdminService } from "./admin.service.js";
+import { sendSuccess } from "../../utils/http.js";
 
 let service: AdminService;
 

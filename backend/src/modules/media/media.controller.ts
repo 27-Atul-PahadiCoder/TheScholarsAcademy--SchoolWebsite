@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { sendSuccess } from "../../utils/http";
-import { MediaService } from "./media.service";
-import { logger } from "../../utils/logger";
+import { sendSuccess } from "../../utils/http.js";
+import { MediaService } from "./media.service.js";
+import { logger } from "../../utils/logger.js";
 
 let service: MediaService;
 

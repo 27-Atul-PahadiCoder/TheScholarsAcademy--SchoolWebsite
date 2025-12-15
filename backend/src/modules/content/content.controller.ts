@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { sendSuccess } from "../../utils/http";
-import { ContentService } from "./content.service";
+import { sendSuccess } from "../../utils/http.js";
+import { ContentService } from "./content.service.js";
 
 const service = new ContentService();
 

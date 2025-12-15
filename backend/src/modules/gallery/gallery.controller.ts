@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { sendSuccess } from "../../utils/http";
-import { GalleryService } from "./gallery.service";
-import type { GalleryUpdatePayload } from "./gallery.types";
+import { sendSuccess } from "../../utils/http.js";
+import { GalleryService } from "./gallery.service.js";
+import type { GalleryUpdatePayload } from "./gallery.types.js";
 
 const service = new GalleryService();
 

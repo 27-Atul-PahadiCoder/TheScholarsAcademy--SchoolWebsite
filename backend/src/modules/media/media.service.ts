@@ -2,8 +2,8 @@ import type { Express } from "express";
 import path from "path";
 import fs from "fs/promises";
 import * as replace from "replace-in-file";
-import { env } from "../../config/env";
-import { logger } from "../../utils/logger";
+import { env } from "../../config/env.js";
+import { logger } from "../../utils/logger.js";
 
 const MEDIA_ROOT_DIRS = [
   path.resolve(process.cwd(), "../frontend/public/images"),

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { MediaController } from "./media.controller";
-import { upload } from "../../config/storage";
+import { MediaController } from "./media.controller.js";
+import { upload } from "../../config/storage.js";
 
 const router = Router();
 

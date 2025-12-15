@@ -1,6 +1,6 @@
 import { Pinecone } from "@pinecone-database/pinecone";
-import { env } from "./env";
-import { logger } from "../utils/logger";
+import { env } from "./env.js";
+import { logger } from "../utils/logger.js";
 
 interface UpsertVector {
     id: string;
