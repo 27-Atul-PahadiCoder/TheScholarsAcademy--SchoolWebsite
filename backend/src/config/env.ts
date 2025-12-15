@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 
 let loaded = false;
 
+export let startupError: Error | null = null;
+
 type EnvShape = {
   NODE_ENV: string;
   PORT: number;
@@ -22,10 +24,10 @@ export const loadEnv = () => {
 };
 
 const requireValue = (value: string | undefined, key: keyof EnvShape) => {
-  if (!value) {
-    throw new Error(`Missing environment variable: ${key}`);
+  if (!value && !startupError) {
+    startupError = new Error(`Missing environment variable: ${key}`);
   }
-  return value;
+  return value as string;
 };
 
 loadEnv();

@@ -1,5 +1,5 @@
 import { app } from "./app";
-import { loadEnv, env } from "./config/env";
+import { env, startupError } from "./config/env";
 // import { connectSql } from "./config/sqlClient";
 import connectMongo from "./config/mongoClient";
 // import { initVectorClient } from "./config/vectorClient";
@@ -7,7 +7,10 @@ import { initMediaController } from "./modules/media/media.controller";
 import { initAdminController } from "./modules/admin/admin.controller";
 import { logger } from "./utils/logger";
 
-loadEnv();
+if (startupError) {
+  logger.error({ error: startupError }, "FATAL: Backend failed to start");
+  process.exit(1);
+}
 
 const port = env.PORT;
 
