@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import fs from "fs/promises";
 import path from "path";
-import connectMongo from "../config/mongoClient";
-import { env } from "../config/env";
-import { MediaModel } from "../modules/media/media.model";
+import connectMongo from "../config/mongoClient.js";
+import { env } from "../config/env.js";
+import { MediaModel } from "../modules/media/media.model.js";
 
 const SCAN_DIRECTORIES = [
   "../../frontend/public/images",

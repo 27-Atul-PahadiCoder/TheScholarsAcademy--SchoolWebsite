@@ -1,7 +1,7 @@
-import { getSqlClient } from "../config/sqlClient";
-import { PageContentModel } from "../modules/content/content.model";
-import { vectorOperations } from "../config/vectorClient";
-import { logger } from "../utils/logger";
+import { getSqlClient } from "../config/sqlClient.js";
+import { PageContentModel } from "../modules/content/content.model.js";
+import { vectorOperations } from "../config/vectorClient.js";
+import { logger } from "../utils/logger.js";
 
 export const runContentSync = async () => {
   const db = getSqlClient();
