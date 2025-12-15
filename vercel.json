@@ -19,7 +19,7 @@
             "destination": "/backend/src/server.ts"
         },
         {
-            "source": "/(.*)",
+            "source": "/:path((?!api/).*)",
             "destination": "/frontend/dist/index.html"
         }
     ]
