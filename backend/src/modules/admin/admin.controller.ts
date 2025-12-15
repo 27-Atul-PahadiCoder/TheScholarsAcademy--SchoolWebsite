@@ -1,4 +1,4 @@
-import type { Request, Response } from "express";
+import type { Request, Response, NextFunction } from "express";
 import { AdminService } from "./admin.service.js";
 import { sendSuccess } from "../../utils/http.js";
 
@@ -9,13 +9,18 @@ export const initAdminController = () => {
 };
 
 export const AdminController = {
-  login: async (req: Request, res: Response) => {
-    const result = await service.login(req.body.email, req.body.password);
-    if (!result) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
+  login: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await service.login(req.body.email, req.body.password);
+      if (!result) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
 
-    return sendSuccess(res, result);
+      return sendSuccess(res, result);
+    } catch (error) {
+      console.error("!!! UNCAUGHT EXCEPTION IN LOGIN !!!", error);
+      next(error);
+    }
   },
   seed: async (_req: Request, res: Response) => {
     const user = await service.ensureSeedUser();
