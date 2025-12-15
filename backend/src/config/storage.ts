@@ -3,7 +3,9 @@ import fs from "fs";
 import path from "path";
 import { env } from "./env.js";
 
-const uploadDir = path.resolve(process.cwd(), env.MEDIA_DIR);
+const uploadDir = process.env.VERCEL
+  ? path.resolve("/tmp", env.MEDIA_DIR)
+  : path.resolve(process.cwd(), env.MEDIA_DIR);
 
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
